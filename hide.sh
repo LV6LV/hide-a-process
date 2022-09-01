@@ -16,6 +16,9 @@ function hideProcess() {
         mount --bind /tmp/hidden /proc/$pid
 }
 
+#function listProcess() {
+#        ps -ef -o ppid,pid,tty,comm | grep ${process}
+#}
 
 if [[ $(id -u) -ne "0" ]]; then
         echo "[error] You must run this script as root" >&2
@@ -35,6 +38,7 @@ read -p "Process ID: " pid
 
 mesg="Your PID was successfully hidden!"
 
+#mkFolder && listProcess && hideProcess && \
 mkFolder && hideProcess && \
 
 for i in $(seq 1 ${#mesg}); do
