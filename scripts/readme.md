@@ -7,7 +7,7 @@ normal=$(tput sgr0)
 printf "%40s\n" "${blue}This text is blue${normal}and this is normal"
 
 ```
-# more advnaced colors using functions
+# or add color to the whole line.
 ```
 # Define colors...
 RED=`tput bold && tput setaf 1`
