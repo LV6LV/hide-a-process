@@ -3,6 +3,7 @@
 This is a simple script to clean /etc/hosts
 
 COMMENT
+
 # Define colors...
 RED=`tput bold && tput setaf 1`
 GREEN=`tput bold && tput setaf 2`
@@ -10,6 +11,7 @@ YELLOW=`tput bold && tput setaf 3`
 BLUE=`tput bold && tput setaf 4`
 NORM=`tput sgr0`
 
+# Aux Functions
 function RED(){
 	printf "\n${RED}${1}${NORM}"
 }
@@ -22,6 +24,7 @@ function YELLOW(){
 function BLUE(){
 	printf "\n${BLUE}${1}${NORM}"
 }
+
 # Main function
 function gREP() {
     grep -v $term /etc/hosts >> /tmp/hosts; mv /tmp/hosts /etc/hosts; tac /etc/hosts 
