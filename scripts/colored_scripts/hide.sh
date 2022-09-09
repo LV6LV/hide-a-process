@@ -54,7 +54,7 @@ function mkFolder() {
         rm -rf /tmp/hidden
         mkdir /tmp/hidden
         if [[ $? -ne 0 ]]; then
-                RED "[err] An error has ocurred/n/n" >&2
+                RED "[error] An error has ocurred/n/n" >&2
                 exit 1
         fi
 }
@@ -69,7 +69,7 @@ function filteredList(){
 }
 
 if [[ $(id -u) -ne "0" ]]; then
-        RED "[error] You must run this script as root/n/n" >&2
+        RED "[error] You must run this script as root\n\n" >&2
         exit 1
 fi
 
@@ -79,13 +79,13 @@ do
         ProgressBar ${number} ${_end}
 done
 
-BLUE "\nLets get a list of processes. \n\n"
+BLUE "\nSimple Process List\n\n"
 listProcess
 printf "\r\n"
 read -p "Provide one of the following values to filter by (ppid,pid,tty,comm): " process
 filteredList
 printf "\r\n"
-read -p "Provide Process ID to hide: " pid
+read -p "Process ID to hide: " pid
 
 
 mesg="Your PID was successfully hidden!"
@@ -94,6 +94,6 @@ mkFolder && hideProcess && \
 
 for i in $(seq 1 ${#mesg}); do
         printf "${RED}${mesg:i-1:1}${NORM}"
-        sleep 0.02
+        sleep 0.022
 done
 printf "\n"
