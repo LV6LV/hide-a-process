@@ -1,14 +1,18 @@
 ## Just some notes
 # can add colors this way.
 ```
-blue=$(tput setaf 4)
-normal=$(tput sgr0)
+RED=`tput bold && tput setaf 1`
+GREEN=`tput bold && tput setaf 2`
+YELLOW=`tput bold && tput setaf 3`
+BLUE=`tput bold && tput setaf 4`
+NORM=`tput sgr0`
 
-printf "%40s\n" "${blue}This text is blue${normal}and this is normal"
+printf "%40s\n" "${BLUE}This text is blue${RED}and this is RED"
 
 ```
 # or add color to the whole line.
 ```
+#!/bin/bash
 # Define colors...
 RED=`tput bold && tput setaf 1`
 GREEN=`tput bold && tput setaf 2`
@@ -28,4 +32,9 @@ function YELLOW(){
 function BLUE(){
 	printf "\n${BLUE}${1}${NORM}"
 }
+RED "This text is red"
+GREEN "\nThis is green"
+YELLOW "\nYellow"
+BLUE "\nThis is blue\n"
+printf "\n"
 ```
