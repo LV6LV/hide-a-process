@@ -9,13 +9,14 @@ function gREP() {
 }
 
 if [[ $(id -u) -ne "0" ]]; then
-    echo "[error] You must run this as root... try sudo?" >&2
+    printf "[error] You must run this as root... try sudo?" >&2
     exit 1
 fi
 
-echo -ne "\r"
+printf "Info in /etc/hosts file:\n\n"
 tac /etc/hosts
+printf "\n"
 read -p "Provide the host you would like to remove: " term
-echo -ne "\r"
+printf "\r\n"
 
-gREP && echo -ne "\n An attempt was made. \n"
+gREP && printf "\n An attempt was made. \n"
