@@ -72,4 +72,4 @@ for i in $(seq 1 ${#mesg}); do
         printf "${mesg:i-1:1}"
         sleep 0.022
 done
-printf "\n\n"
+printf "\r\n"
