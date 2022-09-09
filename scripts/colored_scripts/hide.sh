@@ -62,10 +62,12 @@ function hideProcess() {
         mount --bind /tmp/hidden /proc/$pid
 }
 function listProcess() {
+	BLUE "Simple Process List:\n\n"
         ps -efa -o ppid,pid,tty,comm
 }
-function filteredList(){
-	ps -efa -o ppid,pid,tty,comm | grep ${process}
+function currentProcinfo(){
+	GREEN "\nCurrent Process Info:\n\n"
+	printf "PPID=$PPID PID=$$ TTY=";tty
 }
 
 if [[ $(id -u) -ne "0" ]]; then
@@ -79,11 +81,8 @@ do
         ProgressBar ${number} ${_end}
 done
 
-BLUE "\nSimple Process List\n\n"
+currentProcinfo
 listProcess
-printf "\r\n"
-read -p "Provide one of the following values to filter by (ppid,pid,tty,comm): " process
-filteredList
 printf "\r\n"
 read -p "Process ID to hide: " pid
 
@@ -95,4 +94,4 @@ for i in $(seq 1 ${#mesg}); do
         printf "${RED}${mesg:i-1:1}${NORM}"
         sleep 0.022
 done
-printf "\n"
+printf "\r\n"
