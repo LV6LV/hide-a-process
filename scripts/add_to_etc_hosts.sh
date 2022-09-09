@@ -5,20 +5,19 @@ This is a simple script to clean /etc/hosts
 COMMENT
 
 function eCHO() {
-    echo "$ip $term" >> /etc/hosts ; tac /etc/hosts 
+    printf "$ip $term" >> /etc/hosts ; tac /etc/hosts 
 }
 
 if [[ $(id -u) -ne "0" ]]; then
-    echo "[error] You must run this as root... try sudo?" >&2
+    printf "[error] You must run this as root... try sudo?" >&2
     exit 1
 fi
 
-echo -ne "\r"
+printf "Info in /etc/hosts file:\n\n"
 tac /etc/hosts
-echo -ne "\r"
-echo -ne "Lets add a new host"
+printf "\n"
 read -p "Provide the ip first: " ip
 read -p "Provide name.htb to use: " term
-echo -ne "\r"
+printf "\r"
 
-eCHO && echo -ne "\n An attempt was made. \n"
+eCHO && printf "\n ---- An attempt was made ---- \n"
