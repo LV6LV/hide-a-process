@@ -28,7 +28,7 @@ function gREP() {
 }
 
 if [[ $(id -u) -ne "0" ]]; then
-    RED "[error] You must run this as root... try sudo?" >&2
+    RED "[error] You must run this as root... try sudo?\n\n" >&2
     exit 1
 fi
 
