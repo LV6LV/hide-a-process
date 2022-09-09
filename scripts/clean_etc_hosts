@@ -1,0 +1,21 @@
+#!/bin/bash
+: << 'COMMENT' 
+This is a simple script to clean /etc/hosts
+
+COMMENT
+
+function gREP() {
+    grep -v $term /etc/hosts >> /tmp/hosts; mv /tmp/hosts /etc/hosts; tac /etc/hosts 
+}
+
+if [[ $(id -u) -ne "0" ]]; then
+    echo "[error] You must run this as root... try sudo?" >&2
+    exit 1
+fi
+
+echo -ne "\r"
+tac /etc/hosts
+read -p "Provide the host you would like to remove: " term
+echo -ne "\r"
+
+gREP && echo -ne "\n An attempt was made. \n"
