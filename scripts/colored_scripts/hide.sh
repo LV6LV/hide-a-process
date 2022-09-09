@@ -62,7 +62,7 @@ function hideProcess() {
         mount --bind /tmp/hidden /proc/$pid
 }
 function listProcess() {
-        ps -efa -o ppid,pid,tty,comm ; printf "\n"
+        ps -efa -o ppid,pid,tty,comm
 }
 function filteredList(){
 	ps -efa -o ppid,pid,tty,comm | grep ${process}
