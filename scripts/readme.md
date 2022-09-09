@@ -1,16 +1,6 @@
 ## Just some notes
-# can add colors this way.
-```
-RED=`tput bold && tput setaf 1`
-GREEN=`tput bold && tput setaf 2`
-YELLOW=`tput bold && tput setaf 3`
-BLUE=`tput bold && tput setaf 4`
-NORM=`tput sgr0`
 
-printf "%40s\n" "${BLUE}This text is blue${RED}and this is RED"
-
-```
-# or add color to the whole line.
+# add color to the whole line.
 ```
 #!/bin/bash
 # Define colors...
