@@ -23,6 +23,7 @@ function YELLOW(){
 function BLUE(){
 	printf "\n${BLUE}${1}${NORM}"
 }
+# Main Function
 function eCHO() {
     printf "$ip $term \r\n" >> /etc/hosts ; tac /etc/hosts 
 }
