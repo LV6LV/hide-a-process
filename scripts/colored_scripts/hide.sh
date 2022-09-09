@@ -65,7 +65,7 @@ function listProcess() {
         ps -efa -o ppid,pid,tty,comm ; printf "\n"
 }
 function filteredList(){
-	ps -efa -o ppid,pid,tty,comm | grep ${process} ; printf "\n"
+	ps -efa -o ppid,pid,tty,comm | grep ${process}
 }
 
 if [[ $(id -u) -ne "0" ]]; then
@@ -86,7 +86,6 @@ read -p "Provide one of the following values to filter by (ppid,pid,tty,comm): "
 filteredList
 printf "\r\n"
 read -p "Process ID to hide: " pid
-
 
 mesg="Your PID was successfully hidden!"
 
