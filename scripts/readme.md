@@ -26,5 +26,6 @@ RED "This text is red"
 GREEN "\nThis is green"
 YELLOW "\nYellow"
 BLUE "\nThis is blue\n"
+printf "\n${RED}red ${GREEN}green ${YELLOW}yellow ${BLUE}blue ${NORM}back to normal\n"
 printf "\n"
 ```
