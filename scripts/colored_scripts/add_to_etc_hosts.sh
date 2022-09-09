@@ -1,7 +1,7 @@
 #!/bin/bash
 : << 'COMMENT' 
 This is a simple script to clean /etc/hosts
-
+Now with color
 COMMENT
 
 # Colors Defined
@@ -28,7 +28,7 @@ function eCHO() {
 }
 
 if [[ $(id -u) -ne "0" ]]; then
-    RED "[error] You must run this as root... try sudo?" >&2
+    RED "[error] You must run this as root... try sudo?\n\n" >&2
     exit 1
 fi
 
