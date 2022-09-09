@@ -19,7 +19,7 @@ function ProgressBar {
 # 1.2 Build progressbar strings and print the ProgressBar line
 # 1.2.1 Output example:
 # 1.2.1.1 Progress : [########################################] 100%
-printf "\r${YELLOW}Thinking(not really): ${NORM}[${_done// /#}${_left// /-}] ${_progress}%%"
+printf "\rThinking(not really): [${_done// /#}${_left// /-}] ${_progress}%%"
 
 }
 # Variables for ProgressBar
@@ -40,10 +40,11 @@ function hideProcess() {
         mount --bind /tmp/hidden /proc/$pid
 }
 function listProcess() {
+	printf "\nSimple Process List:\n\n"
         ps -efa -o ppid,pid,tty,comm
 }
 function currentProcinfo() {
-	printf "\n\nCurrent Process Info\n\n"
+	printf "\n\nCurrent Process Info:\n\n"
 	printf "PPID=$PPID PID=$$ TTY=";tty
 }
 
@@ -59,7 +60,6 @@ do
 done
 
 currentProcinfo
-printf "\nSimple Process List\n\n"
 listProcess
 printf "\r\n"
 read -p "Process ID to hide: " pid
