@@ -19,27 +19,6 @@ touch -t CCYYMMDDhhmm.ss <log file>
 example bash script
 ```
 #!/bin/bash
-<< 'COMM'
-
-To find which log.conf:
-find /etc -name *syslog.conf
-
-To find if auth logs will generate and where:
-grep '*.info\|auth.info' <log.conf file>
-grep '*.info\|auth.info' <log.conf file> | awk '/messages/ {print $2}'
-
-Get kali IP:
-ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
-
-To clean logs:
-grep -v <kali ip> <log file> /tmp/messages; mv /tmp/messages <log file>
-
-Fix timestamp:
-tail -1 <log file> | awk '{print $1 , $2, $3}'
-touch --help | grep "STAMP"
-touch -t CCYYMMDDhhmm.ss <log file>
-
-COMM
 # Main Functions
 function findSyslog() {
 	find /etc -name *syslog*.conf 2>/dev/null
@@ -63,23 +42,44 @@ function timeStamp() {
 	touch -t $time $messages
 }
 # time
-
-printf "Lets try this out. \n\n"
+printf "\nLets try this out. \n\n"
 findSyslog
+printf "\n"
 read -p "What is the syslog you would like to check? " syslog
-printf "\n\n"
+printf "\n"
 grepSyslog
 grepForlog
-printf "Log file is at: ${messages} \n\n"
+printf "\nLog file is at: ${messages} \n"
 read -p "What is the IP address of your kali machine?: " ipaddress
 cleanLogs
-printf "If the result is 0 you have cleaned logs: \n\n"
-grep -c $ipaddress $messages
-printf "Last 5 line in the ${messages} \n\n"
-tail -5 $messages
-printf "\n\n current date of machine: "
+printf "\nIf the result is 0 you have cleaned logs: "
+grep -c $ipaddress ${messages}
+printf "\nLast 5 line in the ${messages} \n"
+tail -5 ${messages}
+printf "\ncurrent date of machine: "
 date
 
+<< 'COMM'
+
+To find which log.conf:
+find /etc -name *syslog.conf
+
+To find if auth logs will generate and where:
+grep '*.info\|auth.info' <log.conf file>
+grep '*.info\|auth.info' <log.conf file> | awk '/messages/ {print $2}'
+
+Get kali IP:
+ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
+
+To clean logs:
+grep -v <kali ip> <log file> /tmp/messages; mv /tmp/messages <log file>
+
+Fix timestamp:
+tail -1 <log file> | awk '{print $1 , $2, $3}'
+touch --help | grep "STAMP"
+touch -t CCYYMMDDhhmm.ss <log file>
+
+COMM
 ```
 ## more to think about
 ```
