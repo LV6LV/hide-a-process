@@ -1,0 +1,91 @@
+@echo off
+
+rem This is a simple script to modify C:\Windows\System32\drivers\etc\hosts
+
+:usage
+echo.
+echo Usage: %~nx0 [/h] /a ACTION /i IP_ADDRESS /d DOMAIN_NAME
+echo.
+echo Options:
+echo   /h    Show this help message
+echo   /a ACTION      add or remove
+echo   /i IP_ADDRESS  IP address of the domain
+echo   /d DOMAIN_NAME domain name to add or remove
+echo.
+goto :EOF
+
+:add_entry
+findstr /C:"%ip% %domain%" "C:\Windows\System32\drivers\etc\hosts" >nul
+if %errorlevel% equ 0 (
+  echo The entry already exists in C:\Windows\System32\drivers\etc\hosts. >&2
+) else (
+  echo %ip% %domain%>>"C:\Windows\System32\drivers\etc\hosts"
+)
+
+:remove_entry
+findstr /C:"%ip% %domain%" "C:\Windows\System32\drivers\etc\hosts" >nul
+if %errorlevel% equ 0 (
+  findstr /V /C:"%ip% %domain%" "C:\Windows\System32\drivers\etc\hosts" >temp
+  del "C:\Windows\System32\drivers\etc\hosts"
+  ren temp "C:\Windows\System32\drivers\etc\hosts"
+) else (
+  echo The entry does not exist in C:\Windows\System32\drivers\etc\hosts. >&2
+)
+
+:main
+setlocal enabledelayedexpansion
+set ip=
+set domain=
+
+rem Parse command line arguments
+:argloop
+if "%~1" == "" goto :EOF
+set arg=%1
+shift
+
+if "%arg%" == "/h" (
+  call :usage
+  exit /b 0
+) else if "%arg%" == "/a" (
+  set action=%1
+  shift
+) else if "%arg%" == "/i" (
+  set ip=%1
+  shift
+) else if "%arg%" == "/d" (
+  set domain=%1
+  shift
+)
+
+goto :argloop
+
+rem Check if the required arguments are provided
+if "%action%" == "" (
+  echo Missing required arguments >&2
+  call :usage
+  exit /b 1
+)
+if "%ip%" == "" (
+  echo Missing required arguments >&2
+  call :usage
+  exit /b 1
+)
+if "%domain%" == "" (
+  echo Missing required arguments >&2
+  call :usage
+  exit /b 1
+)
+
+rem Check the action
+if "%action%" == "add" (
+  call :add_entry
+) else if "%action%" == "remove" (
+  call :remove_entry
+) else (
+  echo Invalid action: %action% >&2
+  call :usage
+  exit /b 1
+)
+
+rem Print updated C:\Windows\System32\drivers\etc\hosts
+echo Updated C:\Windows\System32\drivers\etc\host
